@@ -42,7 +42,6 @@ class CollectionService
             }
         }
 
-
         $this->collectionRepository->update($collection, $data);
     }
 
@@ -75,6 +74,13 @@ class CollectionService
     protected function storeThumbnailOnFileSystem(UploadedFile $thumbnail): string
     {
         $newFilename = microtime(true).'.'.$thumbnail->getClientOriginalExtension();
+
+        $storage = Storage::disk('public');
+
+        // Create the thumbnails directory if it does not exist.s
+        if (! $storage->exists('thumbnails')) {
+            $storage->makeDirectory('thumbnails');
+        }
 
         $thumbnail->storePubliclyAs('thumbnails', $newFilename, [
             'disk' => 'public',
