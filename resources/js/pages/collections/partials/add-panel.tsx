@@ -30,7 +30,7 @@ type AddPanelProps = {
 
 export default function AddPanel({ collection, children }: AddPanelProps) {
 
-    const { data, setData, processing, errors, post } = useForm<Required<Form>>({
+    const { data, setData, processing, errors, post, reset } = useForm<Required<Form>>({
         name: '',
         fields: [],
     })
@@ -69,7 +69,11 @@ export default function AddPanel({ collection, children }: AddPanelProps) {
     }
 
     const submit = () => {
-        post(route('collections.panels.store', collection.id))
+        post(route('collections.panels.store', collection.id), {
+            onSuccess: () => {
+                reset('name', 'fields');
+            }
+        })
     }
 
     return (
