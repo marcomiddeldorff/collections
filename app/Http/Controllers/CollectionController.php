@@ -19,7 +19,7 @@ class CollectionController extends Controller
     public function index(): Response
     {
         return Inertia::render('collections/index', [
-            'collections' => Collection::latest()->get(),
+            'collections' => Collection::owner()->latest()->get(),
         ]);
     }
 
