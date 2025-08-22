@@ -69,7 +69,7 @@ export default function AddPanel({ collection, children }: AddPanelProps) {
     }
 
     const submit = () => {
-        post(route('panels.store', collection.id))
+        post(route('collections.panels.store', collection.id))
     }
 
     return (

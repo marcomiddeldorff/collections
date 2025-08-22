@@ -7,10 +7,19 @@ require 'recipe/laravel.php';
 
 set('repository', 'git@github.com:marcomiddeldorff/collections.git');
 
-add('shared_files', []);
-add('shared_dirs', []);
-add('writable_dirs', []);
+add('shared_dirs', ['storage']);
+add('shared_files', ['.env']);
 
+set('http_user', 'www-data');        // PHP-FPM-User
+set('writable_dirs', [
+    'storage',
+    'storage/app/public',
+    'bootstrap/cache',
+    'storage/framework',
+    'storage/logs',
+]);
+set('writable_mode', 'acl');         // oder 'chmod' als Fallback
+set('writable_use_sudo', true);
 // Hosts
 
 host('collections.marco-middeldorff.de')
@@ -18,7 +27,11 @@ host('collections.marco-middeldorff.de')
     ->set('deploy_path', '~/Collections')
     ->set('ssh_multiplexing', false);
 
-// ZcNEOg@eRWdFi8mOl8B$K@AY@D6oPHeAFBt&yoOSQJ*LRRanmA
+task('build:npm', function () {
+    cd('{{release_path}}');
+    run('npm install');
+    run('npm run build');
+});
 // Hooks
-
+after('deploy:update_code', 'build:npm');
 after('deploy:failed', 'deploy:unlock');

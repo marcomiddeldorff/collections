@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\Gate;
 
 class UpdateCollectionRequest extends FormRequest
 {
@@ -11,7 +12,7 @@ class UpdateCollectionRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return $this->route('collection')->user_id == $this->user()->id;
+        return Gate::check('update', $this->route('collection'));
     }
 
     /**

@@ -18,7 +18,7 @@ use Inertia\Response;
 class NewPasswordController extends Controller
 {
     /**
-     * Show the password reset page.
+     * Configuration the password reset page.
      */
     public function create(Request $request): Response
     {

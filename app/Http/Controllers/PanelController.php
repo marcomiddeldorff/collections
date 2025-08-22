@@ -14,6 +14,7 @@ use Illuminate\Http\Request;
 
 class PanelController extends Controller
 {
+
     public function store(StorePanelRequest $request, Collection $collection, PanelService $panelService)
     {
         $panelService->storePanel($collection, $request->validated());
@@ -41,5 +42,10 @@ class PanelController extends Controller
     public function updateOrder(Request $request, Collection $collection, PanelService $panelService)
     {
         $panelService->reorder($collection, $request->input('panels'));
+    }
+
+    public function destroy(Collection $collection, Panel $panel, PanelRepository $panelRepository)
+    {
+        $panelRepository->delete($panel);
     }
 }

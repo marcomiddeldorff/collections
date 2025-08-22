@@ -8,6 +8,7 @@ use App\Models\Collection;
 use App\Services\CollectionService;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
 use Inertia\Inertia;
 use Inertia\Response;
 
@@ -24,7 +25,7 @@ class CollectionController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
+     * Configuration the form for creating a new resource.
      */
     public function create(): Response
     {
@@ -46,16 +47,29 @@ class CollectionController extends Controller
      */
     public function show(Collection $collection)
     {
-        return Inertia::render('collections/show', [
+        Gate::authorize('view', $collection);
+
+        return Inertia::render('collections/configuration', [
+            'collection' => $collection->loadMissing('panels.fields'),
+        ]);
+    }
+
+    public function configuration(Collection $collection)
+    {
+        Gate::authorize('view', $collection);
+
+        return Inertia::render('collections/configuration', [
             'collection' => $collection->loadMissing('panels.fields'),
         ]);
     }
 
     /**
-     * Show the form for editing the specified resource.
+     * Configuration the form for editing the specified resource.
      */
     public function edit(Collection $collection): Response
     {
+        Gate::authorize('update', $collection);
+
         return Inertia::render('collections/edit', [
             'collection' => $collection,
         ]);
@@ -74,6 +88,8 @@ class CollectionController extends Controller
      */
     public function destroy(Collection $collection, CollectionService $collectionService)
     {
+        Gate::authorize('delete', $collection);
+
         $collectionService->deleteCollection($collection);
     }
 }

@@ -51,11 +51,15 @@ export default function Collections({ collections } : { collections: Array<Colle
                                         Erstellt am: {collection.created_at}
                                     </p>
 
-                                    <div className="mt-3 border-t pt-2 px-3 flex gap-x-2">
-                                        <Link href={route('collections.show', collection.id)}
-                                                  className="w-full">
-                                            <Button className="w-full">
-                                                Sammlung öffnen
+                                    <div className="mt-3 border-t pt-2 px-3 grid lg:grid-cols-2 grid-cols-1 gap-2">
+                                        <Button disabled className="w-full">
+                                            Sammlung öffnen
+                                        </Button>
+
+                                        <Link href={route('collections.configuration', collection.id)}
+                                              className="w-full">
+                                            <Button className="w-full" variant="outline">
+                                                Konfiguration öffnen
                                             </Button>
                                         </Link>
 

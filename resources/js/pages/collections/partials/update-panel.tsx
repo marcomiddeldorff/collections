@@ -45,7 +45,7 @@ export default function UpdatePanel({ children, open, onClose, onSubmit, collect
     }, [open, panel?.id]);
 
     const submit = () => {
-        put(route('panels.update', { collection: collection.id, panel: panel.id }), {
+        put(route('collections.panels.update', { collection: collection.id, panel: panel.id }), {
             onSuccess: () => {
                 onSubmit?.();
             }

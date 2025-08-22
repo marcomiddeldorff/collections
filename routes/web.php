@@ -14,11 +14,15 @@ Route::middleware(['auth', 'verified'])->group(function () {
     })->name('dashboard');
 
     Route::resource('collections', CollectionController::class);
+    Route::get('collections/{collection}/configuration', [CollectionController::class, 'configuration'])
+        ->name('collections.configuration');
 
-    Route::post('collections/{collection}/panels', [PanelController::class, 'store'])->name('panels.store');
     Route::put('collections/{collection}/panels/reorder', [PanelController::class, 'updateOrder'])->name('panels.update.order');
-    Route::put('collections/{collection}/panels/{panel}', [PanelController::class, 'update'])->name('panels.update');
+    Route::resource('collections.panels', PanelController::class);
     Route::put('collections/{collection}/panels/{panel}/visibility', [PanelController::class, 'updateVisibility'])->name('panels.update.visibility');
+
+//    Route::post('collections/{collection}/panels', [PanelController::class, 'store'])->name('panels.store');
+//    Route::put('collections/{collection}/panels/{panel}', [PanelController::class, 'update'])->name('panels.update');
 
     Route::post('fields/validate', [FieldController::class, 'validateField'])->name('fields.validate');
 });

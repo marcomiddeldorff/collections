@@ -34,4 +34,9 @@ class PanelRepository
 
         return $panel;
     }
+
+    public function delete(Panel $panel): void
+    {
+        $panel->delete();
+    }
 }
