@@ -36,7 +36,7 @@ class CollectionController extends Controller
      */
     public function store(StoreCollectionRequest $request, CollectionService $collectionService): RedirectResponse
     {
-        $collectionService->storeCollection($request->validated());
+        $collectionService->storeCollection($request->validated(), $request->file('thumbnail'));
 
         return back();
     }
@@ -66,7 +66,7 @@ class CollectionController extends Controller
      */
     public function update(UpdateCollectionRequest $request, Collection $collection, CollectionService $collectionService)
     {
-        $collectionService->updateCollection($collection, $request->validated());
+        $collectionService->updateCollection($collection, $request->validated(), $request->file('thumbnail'));
     }
 
     /**
