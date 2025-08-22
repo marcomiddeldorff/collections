@@ -17,11 +17,11 @@ class CollectionService
         public CollectionRepository $collectionRepository,
     ) {}
 
-    public function storeCollection(array $data): void
+    public function storeCollection(array $data, ?UploadedFile $uploadedFile): void
     {
         // A thumbnail has been uploaded.
-        if (isset($data['thumbnail'])) {
-            $data['thumbnail_path'] = $this->storeThumbnailOnFileSystem($data['thumbnail']);
+        if (isset($uploadedFile)) {
+            $data['thumbnail_path'] = $this->storeThumbnailOnFileSystem($uploadedFile);
         }
 
         $this->collectionRepository->store(array_merge($data, [
@@ -29,17 +29,14 @@ class CollectionService
         ]));
     }
 
-    public function updateCollection(Collection $collection, array $data): void
+    public function updateCollection(Collection $collection, array $data, ?UploadedFile $uploadedFile): void
     {
-        if (! isset($data['thumbnail'])) {
+        if (! isset($uploadedFile)) {
             $data['thumbnail_path'] = null;
             $this->deleteThumbnailFromFileSystem($collection->thumbnail_path);
         } else {
-            // The thumbnail has been changed / A new file has been uploaded.
-            if ($data['thumbnail'] instanceof UploadedFile) {
-                $this->deleteThumbnailFromFileSystem($collection->thumbnail_path);
-                $data['thumbnail_path'] = $this->storeThumbnailOnFileSystem($data['thumbnail']);
-            }
+            $this->deleteThumbnailFromFileSystem($collection->thumbnail_path);
+            $data['thumbnail_path'] = $this->storeThumbnailOnFileSystem($uploadedFile);
         }
 
         $this->collectionRepository->update($collection, $data);
