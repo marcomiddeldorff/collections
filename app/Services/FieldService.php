@@ -39,13 +39,29 @@ class FieldService
             if (isset($fieldData['id'])) {
                 $field = $this->fieldRepository->findById((int) $fieldData['id']);
 
+                if (isset($fieldData['willDelete']) && $fieldData['willDelete'] === true) {
+                    $this->fieldRepository->delete($field);
+                }
+
                 if ($field) {
                     $this->fieldRepository->update($field, $fieldData);
+
                     return;
                 }
             }
 
             $this->fieldRepository->storeForPanel($panel, $fieldData);
+        });
+    }
+
+    public function reorderFieldsForPanel(Panel $panel, array $fields): void
+    {
+        collect($fields)->each(function ($fieldData, $key) {
+            $field = $this->fieldRepository->findById((int) $fieldData['id']);
+
+            if ($field) {
+                $this->fieldRepository->update($field, ['sort' => $key]);
+            }
         });
     }
 }

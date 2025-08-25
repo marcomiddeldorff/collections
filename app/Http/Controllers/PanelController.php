@@ -8,6 +8,7 @@ use App\Http\Requests\Panels\UpdateVisibilityRequest;
 use App\Models\Collection;
 use App\Models\Panel;
 use App\Repositories\PanelRepository;
+use App\Services\FieldService;
 use App\Services\PanelService;
 use App\Shared\Notify;
 use Illuminate\Http\Request;
@@ -42,6 +43,11 @@ class PanelController extends Controller
     public function updateOrder(Request $request, Collection $collection, PanelService $panelService)
     {
         $panelService->reorder($collection, $request->input('panels'));
+    }
+
+    public function updateFieldOrder(Request $request, Collection $collection, Panel $panel, FieldService $fieldService)
+    {
+        $fieldService->reorderFieldsForPanel($panel, $request->get('fields', []));
     }
 
     public function destroy(Collection $collection, Panel $panel, PanelRepository $panelRepository)

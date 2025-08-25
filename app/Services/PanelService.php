@@ -8,6 +8,7 @@ namespace App\Services;
 
 use App\Models\Collection;
 use App\Models\Panel;
+use App\Repositories\FieldRepository;
 use App\Repositories\PanelRepository;
 use App\Shared\Notify;
 use Illuminate\Support\Facades\DB;
@@ -16,7 +17,8 @@ class PanelService
 {
     public function __construct(
         public PanelRepository $panelRepository,
-        public FieldService $fieldService
+        public FieldService $fieldService,
+        public FieldRepository $fieldRepository
     ) {}
 
     public function storePanel(Collection $collection, array $data): void

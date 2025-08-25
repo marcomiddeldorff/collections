@@ -18,11 +18,9 @@ Route::middleware(['auth', 'verified'])->group(function () {
         ->name('collections.configuration');
 
     Route::put('collections/{collection}/panels/reorder', [PanelController::class, 'updateOrder'])->name('panels.update.order');
+    Route::put('collections/{collection}/panels/fields/reorder', [PanelController::class, 'updateFieldOrder'])->name('panels.fields.update.order');
     Route::resource('collections.panels', PanelController::class);
     Route::put('collections/{collection}/panels/{panel}/visibility', [PanelController::class, 'updateVisibility'])->name('panels.update.visibility');
-
-//    Route::post('collections/{collection}/panels', [PanelController::class, 'store'])->name('panels.store');
-//    Route::put('collections/{collection}/panels/{panel}', [PanelController::class, 'update'])->name('panels.update');
 
     Route::post('fields/validate', [FieldController::class, 'validateField'])->name('fields.validate');
 });

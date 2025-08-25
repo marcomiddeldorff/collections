@@ -47,6 +47,8 @@ export default function Configuration({ collection }: { collection: Collection }
         }));
     }
 
+    const [editPanel, setEditPanel] = useState<Panel | null>(null);
+
     return (
         <AppLayout breadcrumbs={breadcrumbs}>
             <Head title={collection.name} />
@@ -100,8 +102,11 @@ export default function Configuration({ collection }: { collection: Collection }
                                                 </div>
                                                 <div className="text-sm">{panel.fields.length} Feld(er)</div>
                                                 <div className="flex items-center gap-2">
-                                                    <UpdatePanel key={panel.id} collection={collection} panel={panel}>
-                                                        <Button size="sm" variant="ghost" className="hover:bg-zinc-800">
+                                                    <UpdatePanel key={panel.id} collection={collection} panel={panel}
+                                                                 open={editPanel !== null}
+                                                                 onOpenChange={(value) => !value ? setEditPanel(null) : null}
+                                                                 onClose={() => setEditPanel(null)}>
+                                                        <Button onClick={() => setEditPanel(panel)} size="sm" variant="ghost" className="hover:bg-zinc-800">
                                                             <Pencil width={18} className="text-yellow-500" />
                                                         </Button>
                                                     </UpdatePanel>

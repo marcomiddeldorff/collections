@@ -29,6 +29,7 @@ class UpdatePanelRequest extends FormRequest
             'fields.*.label' => ['required', 'string', 'max:255'],
             'fields.*.type' => ['required', 'string', 'in:text,date,datetime-local,select'],
             'fields.*.required' => ['bool'],
+            'fields.*.willDelete' => ['bool'],
             'fields.*.config.options' => ['nullable', 'array'],
             'fields.*.config.options.*' => ['required', 'string', 'max:255'],
         ];

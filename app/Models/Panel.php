@@ -29,6 +29,7 @@ class Panel extends Model
 
     public function fields(): HasMany
     {
-        return $this->hasMany(Field::class);
+        return $this->hasMany(Field::class)
+            ->orderBy('sort');
     }
 }

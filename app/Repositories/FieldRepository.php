@@ -26,4 +26,9 @@ class FieldRepository
         $field->fresh();
         return $field;
     }
+
+    public function delete(Field $field): void
+    {
+        $field->delete();
+    }
 }
