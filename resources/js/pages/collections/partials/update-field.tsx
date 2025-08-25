@@ -101,6 +101,28 @@ export default function UpdateField({ onUpdateField, initial, open, onClose, chi
                 </DialogHeader>
 
                 <div className="grid gap-4">
+                    <div className="border py-3 px-4 rounded-md border-dashed text-sm">
+                        <strong>Tipp!</strong> <br/>
+                        <p className="text-muted-foreground">
+                            Du kannst auch vom System generierte Felder zu deinen Panels hinzufügen. Wir geben hier die Feld-Keys an, und erklären kurz, was das Feld darstellt.
+
+                            <ul className="mt-3">
+                                <li>
+                                    <strong>id</strong> = Die ID deines Eintrages.
+                                </li>
+                                <li>
+                                    <strong>created_at</strong> = Das Erstellungsdatum des Eintrages.
+                                </li>
+                                <li>
+                                    <strong>updated_at</strong> = Das Datum, an dem der Eintrag aktualisiert wurde.
+                                </li>
+                            </ul>
+
+                            <div className="mt-3">
+                                Wenn du einen dieser Feld-Keys verwendest, wird die Feldart automatisch bestimmt.
+                            </div>
+                        </p>
+                    </div>
                     <div className="grid gap-2">
                         <Label required>
                             Feld-Key{' '}

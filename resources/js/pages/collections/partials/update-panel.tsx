@@ -133,27 +133,6 @@ export default function UpdatePanel({ children, open, onClose, onSubmit, collect
                             <div className="flex items-center justify-between">
                                 <div className="flex items-center gap-x-3">
                                     <Label>Felder</Label>
-                                    <Tooltip>
-                                        <TooltipTrigger>
-                                            <Info width={15} className="text-muted-foreground" />
-                                        </TooltipTrigger>
-                                        <TooltipContent>
-                                            Du kannst automatisch festgelegte Felder, wie die ID, das Erstellungsdatum und das Aktualisierungsdatum
-                                             eines Eintrages verwenden. <br /> <br/>
-                                            Verwende dazu bitte die folgenden Key's für die Felder: <br />
-                                            <ul>
-                                                <li>
-                                                    Key = id (Die ID)
-                                                </li>
-                                                <li>
-                                                    Key = created_at (Das Erstellungsdatum)
-                                                </li>
-                                                <li>
-                                                    Key = updated_at (Das Aktualisierungsdatum)
-                                                </li>
-                                            </ul>
-                                        </TooltipContent>
-                                    </Tooltip>
                                 </div>
                                 <AddField open={openAddFieldModal} onClose={() => setOpenAddFieldModal(false)} onAddField={onAddField}>
                                     <Button disabled={processing} onClick={() => setOpenAddFieldModal(true)} variant="link">
